@@ -10,7 +10,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -75,14 +76,14 @@ class ReservationSystemApplicationTests {
 																(0L,
 																"Dean",
 																"Dean@gmail.com",
-																LocalDateTime.parse("2022-08-26T15:34:39.386"),
+															Date.valueOf("2022-08-26T15:34:39.386"),
 																"table 5/Wed/5PM");  
 		       
 		    final Reservation TEST_SAVED_RESERVATION = new Reservation
 											        				(1L,
 																	"Dean",
 																	"Dean@gmail.com",
-																	LocalDateTime.parse("2022-08-26T15:34:39.386"),
+																	Date.valueOf("2022-08-26T15:34:39.386"),
 																	"table 5/Wed/5PM");
 
 		     //Testing saves from RepositoryRepo
@@ -109,7 +110,7 @@ class ReservationSystemApplicationTests {
 			  Long reservationId = 2000L; 
 			  final Reservation TEST_RESERVATION = new
 			  Reservation (reservationId, "Dean", "Dean@gmail.com",
-			  LocalDateTime.parse("2022-08-26T15:34:39.386"), "table 5/Wed/5PM");
+			  Date.valueOf("2022-08-26T15:34:39.386"), "table 5/Wed/5PM");
 			  
 			  
 			  
@@ -137,7 +138,7 @@ class ReservationSystemApplicationTests {
 			  Long reservationId = 2000L;   
 			  final Reservation TEST_SAVED_RESERVATION = new Reservation(reservationId, "Dean",
 																		  "Dean@gmail.com",
-																		  LocalDateTime.parse("2022-08-26T15:34:39.386"),
+																		  Date.valueOf("2022-08-26T15:34:39.386"),
 																		  "table 5/Wed/5PM");
 			  
 			  
@@ -155,7 +156,7 @@ class ReservationSystemApplicationTests {
 				  Long reservationId = 2000L; 
 				  final Reservation TEST_SAVED_RESERVATION = new Reservation(reservationId, "Dean",
 						  "Dean@gmail.com",
-						  LocalDateTime.parse("2022-08-26T15:34:39.386"),
+						  Date.valueOf("2022-08-26T15:34:39.386"),
 						  "table 5/Wed/5PM");
 				  
 				
@@ -187,7 +188,7 @@ class ReservationSystemApplicationTests {
 				  final Reservation TEST_SAVED_RESERVATION = new Reservation(
 																	  reservationId, "Dean",
 																	  "Dean@gmail.com",
-																	  LocalDateTime.parse("2022-08-26T15:34:39.386"),
+																	  Date.valueOf("2022-08-26T15:34:39.386"),
 																	  "table 5/Wed/5PM");
 			  
 			  this.mock.perform(post("/updateReservation")

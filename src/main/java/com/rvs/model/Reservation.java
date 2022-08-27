@@ -2,6 +2,7 @@ package com.rvs.model;
 
 
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -37,7 +38,7 @@ public class Reservation {
 	@Column(columnDefinition ="text")
 	private String email;
 	@Column
-	private LocalDateTime timeCreated;
+	private Date timeCreated;
 	
 	@Column(columnDefinition = "text")
 	private String reservationDetails;

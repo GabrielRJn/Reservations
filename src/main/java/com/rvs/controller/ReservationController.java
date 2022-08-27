@@ -37,16 +37,16 @@ public class ReservationController {
 			}  
 			
 			//creating a get mapping that retrieves the detail of a specific reservation  
-			@GetMapping("/reservation/{reservationID}")
+			@GetMapping("/reservation/ids{reservationID}")
 			private Optional<Reservation> getReservationById(@PathVariable("reservationID") long id)
 			{  
 			return ReservationService.getReservationById(id);  
 			}
 			
-			@GetMapping("/reservation/{customerName}")
-			private Optional<Reservation> getReservationByCustomer(@PathVariable("customerName") String name)
+			@GetMapping("/reservation/names{customerName}")
+			private Optional<List<Reservation>> getReservationByCustomer(@PathVariable("customerName") String name)
 			{  
-			return Optional.ofNullable(ReservationService.findCustomerByName(name));  
+			return ReservationService.findCustomerByName(name);  
 			}  
 			
 			//creating a delete mapping that deletes a specified reservation  
