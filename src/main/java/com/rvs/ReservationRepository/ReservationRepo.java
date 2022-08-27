@@ -21,7 +21,7 @@ public interface ReservationRepo extends CrudRepository <Reservation, Long> {
 			
 	@Query("SELECT r"
 			+ " FROM Reservation r"
-			+ " WHERE r.timeCreated like %:date%")
-	public Optional<Reservation> getReservationByDateCreated(Date date);	
+			+ " WHERE r.timeCreated = :date")
+	public Iterable<Reservation> getReservationByDateCreated(Date date);	
 			
 }

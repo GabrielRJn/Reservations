@@ -1,5 +1,6 @@
 package com.rvs.controller;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rvs.exceptions.NoReservationsFromDateException;
 import com.rvs.model.Reservation;
 import com.rvs.service.ReservationService;
 
@@ -49,13 +52,22 @@ public class ReservationController {
 			return ReservationService.findCustomerByName(name);  
 			}  
 			
+			@GetMapping("/reservation/date{yyyy-mm-dd}")
+			private Optional<List<Reservation>> getReservationByDateCreated(@PathVariable("yyyy-mm-dd") Date date ) 
+			{  
+		
+			return ReservationService.findByDateCreated(date);  
+			
+			
+			} 
+			
+			
 			//creating a delete mapping that deletes a specified reservation  
 			@DeleteMapping("/deleteReservation/{reservationID}")  
 			private void deletereservation(@PathVariable("reservationid") int reservationID)   
 			{  
 			ReservationService.delete(reservationID);  
 			}  
-			
 			
 			
 			//Updating Reservations 

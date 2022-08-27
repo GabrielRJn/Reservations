@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.rvs.ReservationRepository.ReservationRepo;
 import com.rvs.exceptions.CustomerNotFoundException;
+import com.rvs.exceptions.NoReservationsFromDateException;
 import com.rvs.exceptions.ReservationIDNotFound;
 import com.rvs.model.Reservation;
 
@@ -44,17 +45,30 @@ public class ReservationService {
 			
 			public Optional<List<Reservation>> findCustomerByName(String customerName) {
 				List<Reservation> reservationList = new ArrayList<Reservation>();  
-				reservationRepo.getByCustomerName(customerName).forEach(reservation -> reservationList.add(reservation));
+				
+				reservationRepo.getByCustomerName(customerName)
+								.forEach(reservation -> reservationList.add(reservation));
 				if(reservationList.isEmpty()) throw new CustomerNotFoundException();
+				
 				return Optional.ofNullable(reservationList);  
 			
 			}
 			
 			
-			public Optional<Reservation> findByDateCreated(Date date){
-				return reservationRepo.getReservationByDateCreated(date);
-			}
+			public Optional<List<Reservation>> findByDateCreated(Date date)  {
+				
+				
+				List<Reservation> reservationList = new ArrayList<Reservation>();  
+				
+				reservationRepo.getReservationByDateCreated(date)
+								.forEach(reservation -> reservationList.add(reservation));
+				if(reservationList.isEmpty()) throw new NoReservationsFromDateException();	
+				
+				
+				return Optional.ofNullable(reservationList);
 			
+			
+			}
 			
 			//delete reservation
 			public void delete(long id)   
