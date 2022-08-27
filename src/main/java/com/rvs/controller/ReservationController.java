@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.rvs.model.Reservation;
 import com.rvs.service.ReservationService;
 
+@RestController
 public class ReservationController {
 	//auto-wire the ReservationService class  
 			@Autowired  
@@ -24,7 +26,7 @@ public class ReservationController {
 			@GetMapping("/")
 			public String greeting() { 
 				return "This is the Reservations page"
-						+ "\nController Pages\n /allReservations to view all reservations";
+						+ "\nController Pages\n go to /allReservations to view all reservations";
 			}
 			
 			//creating a get mapping that retrieves all the reservations detail from the database   
@@ -39,24 +41,32 @@ public class ReservationController {
 			private Optional<Reservation> getReservationById(@PathVariable("reservationID") long id)
 			{  
 			return ReservationService.getReservationById(id);  
+			}
+			
+			@GetMapping("/reservation/{customerName}")
+			private Optional<Reservation> getReservationByCustomer(@PathVariable("customerName") String name)
+			{  
+			return Optional.ofNullable(ReservationService.findCustomerByName(name));  
 			}  
 			
 			//creating a delete mapping that deletes a specified reservation  
-			@DeleteMapping("/deletereservation/{reservationid}")  
-			private void deletereservation(@PathVariable("reservationid") int reservationid)   
+			@DeleteMapping("/deleteReservation/{reservationID}")  
+			private void deletereservation(@PathVariable("reservationid") int reservationID)   
 			{  
-			ReservationService.delete(reservationid);  
+			ReservationService.delete(reservationID);  
 			}  
 			
+			
+			
 			//Updating Reservations 
-			@PostMapping("/updateReservation/{reservationid}")  
+			@PostMapping("/updateReservation")  
 			private ResponseEntity<Reservation> updateReservation(@RequestBody Reservation existingReservation)   
 			{  
 				return new ResponseEntity<>(this.ReservationService.saveOrUpdate(existingReservation), HttpStatus.CREATED);
 			}  
 			
 			//Adding new reservations
-			@PutMapping("/saveReservations")  
+			@PutMapping("/addNewReservations")  
 			private Reservation addReservation(@RequestBody Reservation newReservation)   
 			{  
 			ReservationService.saveOrUpdate(newReservation);  

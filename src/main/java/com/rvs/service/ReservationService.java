@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.rvs.ReservationRepository.ReservationRepo;
 import com.rvs.exceptions.ReservationIDNotFound;
 import com.rvs.model.Reservation;
 
 
-
+@Service
 public class ReservationService {
 	
 			@Autowired  
@@ -33,18 +34,16 @@ public class ReservationService {
 				return Optional.ofNullable(foundReservation);
 			}  
 
-			//saving a specific record by using the method save() of CrudRepository  
+			 
 			public Reservation saveOrUpdate(Reservation reservation)   
 			{  
 			return reservationRepo.save(reservation);  
 			}
 			
-			
-			public Reservation updateReservationByID(long id) {
-				Reservation existingReservation = reservationRepo.findById(id)
-																	.orElseThrow(ReservationIDNotFound::new);
-				return reservationRepo.save(existingReservation);
+			public Reservation findCustomerByName(String customerName) {
+				return reservationRepo.getByCustomerName(customerName);
 			}
+			
 			
 			//delete reservation
 			public void delete(long id)   

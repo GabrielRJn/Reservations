@@ -10,7 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
+
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,11 +20,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-
-@Entity
-@Table
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table
 public class Reservation {
 	
 	@Id
@@ -32,9 +32,10 @@ public class Reservation {
 	private Long reservationID; 
 	
 	@Column
-	private String customer;
-	@Column
-	private Email email;
+	private String customerName;
+	
+	@Column(columnDefinition ="text")
+	private String email;
 	@Column
 	private LocalDateTime timeCreated;
 	
