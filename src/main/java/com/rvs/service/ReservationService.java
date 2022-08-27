@@ -3,6 +3,7 @@ package com.rvs.service;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,8 @@ public class ReservationService {
 			public Optional<Reservation> getReservationById(long id)   
 			{  
 				
-				Reservation foundReservation = reservationRepo.findById(id).orElseThrow(ReservationIDNotFound::new);
+				Reservation foundReservation = reservationRepo.findById(id)
+															.orElseThrow(ReservationIDNotFound::new);
 				return Optional.ofNullable(foundReservation);
 			}  
 
