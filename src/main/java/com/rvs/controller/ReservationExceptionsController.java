@@ -37,8 +37,11 @@ public class ReservationExceptionsController {
 	 }
 	 
 	 @ExceptionHandler(value =MethodArgumentTypeMismatchException.class)
-	  public ResponseEntity<?> methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) 
+	  public ResponseEntity<Object> methodArgumentTypeMismatchException
+	  										(MethodArgumentTypeMismatchException ex) 
 	  {
-	    return new ResponseEntity<>("Invalid date format, use yyyy-mm-dd", HttpStatus.BAD_REQUEST);
+		 return new ResponseEntity<>(String.format("'%s' should be a valid '%s' and '%s' isn't", ex.getName(), ex.getRequiredType(), ex.getValue()), HttpStatus.BAD_REQUEST);
+		
+	    //return new ResponseEntity<>("Invalid date format, use yyyy-mm-dd", HttpStatus.BAD_REQUEST);
 	  }
 }
