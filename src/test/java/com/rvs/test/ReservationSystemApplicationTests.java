@@ -43,11 +43,12 @@ import com.rvs.ReservationRepository.ReservationRepo;
 import com.rvs.model.Reservation;
 import com.rvs.service.ReservationService;
 
-
+@SpringBootTest("webEnvironment = WebEnvironment.RANDOM_PORT")
 @AutoConfigureMockMvc
-@SpringBootTest
-//@Sql(scripts = { "classpath:reservations-data.sql",
-//"classpath:reservations-schema.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+
+@Sql(scripts = {"classpath:reservations-schema.sql",
+"classpath:reservations-data.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+@ActiveProfiles("test")
 class ReservationSystemApplicationTests {
 	
 
@@ -62,7 +63,6 @@ class ReservationSystemApplicationTests {
 		    private MockMvc mock;
 		    
 		    
-		   
 		    @Autowired
 			private ObjectMapper obmapper;
 		    
@@ -76,14 +76,14 @@ class ReservationSystemApplicationTests {
 																(0L,
 																"Dean",
 																"Dean@gmail.com",
-															Date.valueOf("2022-08-26T15:34:39.386"),
+															Date.valueOf("2022-08-26"),
 																"table 5/Wed/5PM");  
 		       
 		    final Reservation TEST_SAVED_RESERVATION = new Reservation
 											        				(1L,
 																	"Dean",
 																	"Dean@gmail.com",
-																	Date.valueOf("2022-08-26T15:34:39.386"),
+																	Date.valueOf("2022-08-26"),
 																	"table 5/Wed/5PM");
 
 		     //Testing saves from RepositoryRepo
@@ -110,7 +110,7 @@ class ReservationSystemApplicationTests {
 			  Long reservationId = 2000L; 
 			  final Reservation TEST_RESERVATION = new
 			  Reservation (reservationId, "Dean", "Dean@gmail.com",
-			  Date.valueOf("2022-08-26T15:34:39.386"), "table 5/Wed/5PM");
+			  Date.valueOf("2022-08-26"), "table 5/Wed/5PM");
 			  
 			  
 			  
@@ -138,7 +138,7 @@ class ReservationSystemApplicationTests {
 			  Long reservationId = 2000L;   
 			  final Reservation TEST_SAVED_RESERVATION = new Reservation(reservationId, "Dean",
 																		  "Dean@gmail.com",
-																		  Date.valueOf("2022-08-26T15:34:39.386"),
+																		  Date.valueOf("2022-08-26"),
 																		  "table 5/Wed/5PM");
 			  
 			  
@@ -156,7 +156,7 @@ class ReservationSystemApplicationTests {
 				  Long reservationId = 2000L; 
 				  final Reservation TEST_SAVED_RESERVATION = new Reservation(reservationId, "Dean",
 						  "Dean@gmail.com",
-						  Date.valueOf("2022-08-26T15:34:39.386"),
+						  Date.valueOf("2022-08-26"),
 						  "table 5/Wed/5PM");
 				  
 				
@@ -188,7 +188,7 @@ class ReservationSystemApplicationTests {
 				  final Reservation TEST_SAVED_RESERVATION = new Reservation(
 																	  reservationId, "Dean",
 																	  "Dean@gmail.com",
-																	  Date.valueOf("2022-08-26T15:34:39.386"),
+																	  Date.valueOf("2022-08-26"),
 																	  "table 5/Wed/5PM");
 			  
 			  this.mock.perform(post("/updateReservation")
@@ -213,7 +213,39 @@ class ReservationSystemApplicationTests {
 					  									   .readValue(resultString,Reservation[].class));
 			  
 			  assertEquals(new ArrayList<>(Arrays.asList()),
-			  listOfReservations); System.out.println(listOfReservations.size()); }
+			  listOfReservations); System.out.println(listOfReservations.size());
+			  }
+			
+			  
+			  //Integration Test 3
+			  @Test
+			  public void IntTestGetCustomerByName() throws Exception{
+				  final Reservation TEST_SAVED_RESERVATION = new Reservation(
+						  43L, "Dean",
+						  "Dean@gmail.com",
+						  Date.valueOf("2022-08-26"),
+						  "table 5/Wed/5PM");
+				  
+				  this.mock.perform(put("/updateReservation")
+			  			   .contentType(MediaType.APPLICATION_JSON)
+						  .content(this.obmapper.writeValueAsString(TEST_SAVED_RESERVATION)));
+				  
+				  
+				  final String resultString = this.mock.perform(
+						  									request(HttpMethod.GET,"/reservation/names{customerName}")
+						  									.accept(MediaType.APPLICATION_JSON))
+						  									.andExpect(status()
+						  									.isOk()).andReturn().getResponse().getContentAsString();
+				  
+			 
+			  }
+			  }
+			  
+			  
+			  
+			  
+			  
+			 
 			 
 		  
 		  
