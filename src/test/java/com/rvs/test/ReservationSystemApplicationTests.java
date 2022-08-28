@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,8 +19,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -219,34 +222,62 @@ class ReservationSystemApplicationTests {
 			  
 			  //Integration Test 3
 			  @Test
-			  public void IntTestGetCustomerByName() throws Exception{
+			  public void IntTestAddNewReservation() throws Exception{
 				  final Reservation TEST_SAVED_RESERVATION = new Reservation(
 						  43L, "Dean",
 						  "Dean@gmail.com",
 						  Date.valueOf("2022-08-26"),
 						  "table 5/Wed/5PM");
 				  
-				  this.mock.perform(put("/updateReservation")
+				 this.mock.perform(put("/addNewReservations")
 			  			   .contentType(MediaType.APPLICATION_JSON)
-						  .content(this.obmapper.writeValueAsString(TEST_SAVED_RESERVATION)));
+						  .content(this.obmapper.writeValueAsString(TEST_SAVED_RESERVATION)))
+				  		  .andExpect(status().is2xxSuccessful());
+				 
+				
 				  
-				  
-				  final String resultString = this.mock.perform(
-						  									request(HttpMethod.GET,"/reservation/names{customerName}")
-						  									.accept(MediaType.APPLICATION_JSON))
-						  									.andExpect(status()
-						  									.isOk()).andReturn().getResponse().getContentAsString();
-				  
-			 
-			  }
-			  }
-			  
-			  
-			  
-			  
-			  
-			 
-			 
-		  
-		  
+			
 }
+			  
+			  //Integration Test 4
+			  
+			  @Test public void getReservationById() throws Exception {
+			final Reservation TEST_SAVED_RESERVATION = new Reservation(
+						  999L, "Dean",
+						  "Dean@gmail.com",
+						  Date.valueOf("2022-08-26"),
+						  "table 5/Wed/5PM");
+			
+		      service.saveOrUpdate(TEST_SAVED_RESERVATION);
+		
+		
+				  
+			 String resultString= this.mock.perform(request(HttpMethod.GET,"/reservation/ids{reservationID}",TEST_SAVED_RESERVATION.getReservationID())
+								  .accept(MediaType.APPLICATION_JSON))
+								  .andExpect(status()
+								  .isOk())
+								  .andExpect(jsonPath("$[0].reservationId", Matchers.is(999L)))
+								  .andReturn().getResponse().getContentAsString();
+						  
+											  		  
+			  List<Reservation> listOfReservations = Arrays.asList(obmapper
+						   .readValue(resultString,Reservation[].class));
+			  assertEquals(1, listOfReservations.size());
+			
+			  }
+}
+			  
+				 
+				  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			 
+			 
+		  
+		  
