@@ -15,16 +15,17 @@ Example error message:
 
 ![image](https://user-images.githubusercontent.com/88378835/187109377-49890a68-49b8-428e-ab9b-4bfbd144ac03.png)
 
-# Challenges faced:
+## Challenges faced:
 There were some issues adding JUnit tests for all methods in this project and so coverage is not at its best.
 
-# Future development:
--Improved JUnit tests will be added to improve coverage
--DTOs will be added to reduce requests
--A front end will be added to make this more user friendly
+### Future development:
+***
+*Improved JUnit tests will be added to improve coverage
+*DTOs will be added to reduce requests
+*A front end will be added to make this more user friendly
 
 
-# How to run the project with your MySql Workbench (Not using attached SQL resources)
+## How to run the project with your MySql Workbench (Not using attached SQL resources)
 Step 1: Go to applications.properties
 Step 2: Modify the below spring datasource properties to your SQL connection
 
