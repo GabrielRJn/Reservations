@@ -28,7 +28,7 @@ There were some issues adding JUnit tests for all methods in this project and so
 Step 1: Go to applications.properties
 Step 2: Modify the below spring datasource properties to your SQL connection
 
-*ant path matcher is needed if you are using Swagger to interact with the API
+*ant path matcher is needed if you are using Swagger to interact with the API*
 
 spring.mvc.pathmatch.matching-strategy=ant-path-matcher
 
