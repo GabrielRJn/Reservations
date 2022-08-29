@@ -10,16 +10,15 @@ I expected to implement the main functionalities of the API quite quickly, howev
 ### What went well? 
   The API is able to successfuly carry out CRUD operations on a managed database and use custom SQL queries to improve flexibility the Reservation's service class     and throw user-friendly error messages from custom exceptions given by entering the wrong input over HTTP GET, POST, PUT and DELETE requests.
   
- ### What didn't go as planned? 
+### What didn't go as planned? 
 * Within the given time frame I was not able to implement DTOs in my API - my undstanding of how to implement DTOs was not concrete for this project as it was a new concept to me. There was an attempt to implement this, however my lack of understanding led to this being very time consuming. Seeing that I was facing issues with this, I decided to    leave this feature and focus on other aspects of the API that were more important to complete the project.
 
 * JUnit tests and coverage - Also being new to understanding JUnit tests and Mockito, I was not able to get a high amount of coverage for this project (it is currently 75%) however I do plan to practice my software testing skills for the future.
 
 <img width="236" alt="image" src="https://user-images.githubusercontent.com/88378835/187288661-5550af97-ad36-4c86-bbe8-1dc33c0cc5bf.png">
 
-<img width="723" alt="image" src="https://user-images.githubusercontent.com/88378835/187288876-85c60e45-6a33-4ce4-b43f-6721b9949543.png">
+<img width="269" alt="image" src="https://user-images.githubusercontent.com/88378835/187289398-2b37a702-60e8-4331-be59-57620998f062.png">
 
-<img width="516" alt="image" src="https://user-images.githubusercontent.com/88378835/187288980-de33ff30-6dca-4bda-979f-13d948d9c06f.png">
 
 
  # Possible improvements for future revisions of the project
@@ -65,6 +64,10 @@ Result:
 
 <img width="431" alt="image" src="https://user-images.githubusercontent.com/88378835/187288248-ab8b9bd7-a409-489b-811f-8eb0de940472.png">
 
+
+
+
+JIRA: https://gabrieljohnson.atlassian.net/jira/software/projects/TDL/boards/1/roadmap
 
 ### How to run the project with your MySql Workbench (Not using attached SQL resources)
 Step 1: Go to applications.properties
