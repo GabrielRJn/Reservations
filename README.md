@@ -44,3 +44,10 @@ spring.jpa.hibernate.ddl-auto=create-drop
 
 Step 3: Run as spring boot application
 
+Step 4 (If using Swagger): type http://localhost:8080/swagger-ui/index.html#/ into your browser
+
+**Swagger interface:**
+
+<img width="856" alt="image" src="https://user-images.githubusercontent.com/88378835/187118803-a8514f6f-e1a3-4f51-b168-b40e3149734a.png">
+
+
