@@ -10,7 +10,7 @@ The API requires JDK 17 and a MySQL connection to carry out all functionalities,
 
 ![image](https://user-images.githubusercontent.com/88378835/187108608-23013c2e-a9b5-4e40-8937-993a53414161.png)
 
-The Reservation System uses custom SQL queries to help search through the table and custom exception to provide user friendly error messages.
+The Reservation System uses custom SQL queries (e.g. findByCustomerName & findByDateCreated) to help search through the table and custom exception to provide user friendly error messages.
 
 **Example error message:**
 
