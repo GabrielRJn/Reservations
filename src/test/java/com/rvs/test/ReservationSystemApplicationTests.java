@@ -1,51 +1,35 @@
 package com.rvs.test;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.sql.Date;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rvs.ReservationRepository.ReservationRepo;
+import com.rvs.model.Reservation;
+import com.rvs.service.ReservationService;
 import org.assertj.core.api.Assertions;
-import org.hamcrest.Matchers;
+import org.assertj.core.api.Fail;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.util.Assert;
+import org.junit.*;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rvs.ReservationRepository.ReservationRepo;
-import com.rvs.model.Reservation;
-import com.rvs.service.ReservationService;
-
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 @SpringBootTest("webEnvironment = WebEnvironment.RANDOM_PORT")
 @AutoConfigureMockMvc
 
@@ -74,7 +58,7 @@ class ReservationSystemApplicationTests {
 		    @Test
 		    void testCreate() {
 		    	
-		    //This is a made up person to perform tests against	
+		    	//given
 		    final Reservation TEST_RESERVATION = new Reservation
 																(0L,
 																"Dean",
@@ -90,8 +74,10 @@ class ReservationSystemApplicationTests {
 																	"table 5/Wed/5PM");
 
 		     //Testing saves from RepositoryRepo
+		    //when
 		     Mockito.when(this.repo.save(TEST_RESERVATION)).thenReturn(TEST_SAVED_RESERVATION);
 
+		     //then
 		     //Testing saves from ReservationsService
 		     Assertions.assertThat(this.service.saveOrUpdate(TEST_RESERVATION)).isEqualTo(TEST_SAVED_RESERVATION);
 
@@ -129,6 +115,7 @@ class ReservationSystemApplicationTests {
 			  System.out.println("Get By ID tests are successful");
 			  
 			  }
+			  
 	
 			
 			  //Unit Test 3
@@ -163,21 +150,54 @@ class ReservationSystemApplicationTests {
 						  "table 5/Wed/5PM");
 				  
 				
-			      
-
-			        
-			        System.out.println("Test for Find All Successful");
-  
+			    
+	       
+			       
+			 
+			  repo.save(TEST_SAVED_RESERVATION);
+			 
 			  
-			  List<Reservation> listOfReservations = service.getAllReservations();
-			  listOfReservations.add(TEST_SAVED_RESERVATION);
+			  List<Reservation> listOfReservations = new ArrayList<Reservation>();
+			  
+			  service.getAllReservations().stream().forEach(reservation -> listOfReservations.add(reservation));
 			  
 			  
 			  
 			  assertNotNull(listOfReservations);
 			  assertEquals(1, listOfReservations.size());
+			  assertThat(listOfReservations.contains(TEST_SAVED_RESERVATION));
 			  
-			  System.out.println("Test for Find All Successful"); }
+			  System.out.println("Test for Find All Successful"); 
+			  }
+			  
+			  @Test public void testFindByCustomer() {
+				  Long reservationId = 2000L; 
+				  final Reservation TEST_SAVED_RESERVATION = new Reservation(reservationId, "Dean",
+						  "Dean@gmail.com",
+						  Date.valueOf("2022-08-26"),
+						  "table 5/Wed/5PM");
+				  
+				
+			    
+	       
+			       
+			  
+			  
+			  
+			  
+			  
+			  List<Reservation> listOfReservations  = service.findCustomerByName("Dean")
+					  .stream().findFirst().orElse(Fail.fail("Test reservation not found"));
+			  
+			  
+			  assertNotNull(listOfReservations);
+			  assertEquals(1, listOfReservations.size());
+			 
+			  
+			  System.out.println("Test for Find By customer Successful"); 
+			  }
+			  
+			  
 			  
 			
 			  //---------- Integration Test----------//
@@ -256,7 +276,6 @@ class ReservationSystemApplicationTests {
 								  .accept(MediaType.APPLICATION_JSON))
 								  .andExpect(status()
 								  .isOk())
-								  .andExpect(jsonPath("$[0].reservationId", Matchers.is(999L)))
 								  .andReturn().getResponse().getContentAsString();
 						  
 											  		  
