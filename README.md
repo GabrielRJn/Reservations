@@ -1,5 +1,4 @@
 # Reservations
-Reservation System
 
 This project is a Spring Boot REST API that can perform CRUD operations in order to store and manipulate reservation information. This project has no front end so it is recommended that you use either Postman or Swagger to interact with this API. 
 
