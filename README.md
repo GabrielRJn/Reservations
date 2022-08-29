@@ -1,6 +1,9 @@
 # Reservations
 Reservation System
-This project is a Spring Boot REST API that can perform CRUD operations in order to store and manipulate reservation information. This project has no front end so it is recommended that you use either Postman or Swagger to interact with this API. The API requires JDK 17 and a MySQL connection to carry out all functionalities, however, there are some SQL resources attached to generate test schemas with data.
+
+This project is a Spring Boot REST API that can perform CRUD operations in order to store and manipulate reservation information. This project has no front end so it is recommended that you use either Postman or Swagger to interact with this API. 
+
+The API requires JDK 17 and a MySQL connection to carry out all functionalities, however, there are some SQL resources attached to generate test schemas with data.
 
 
 Example reservation data:
@@ -27,10 +30,12 @@ Step 2: Modify the spring datasource properties to your SQL connection
 spring.mvc.pathmatch.matching-strategy=ant-path-matcher
 
 spring.datasource.url=jdbc:{sql connection here}
+
 spring.datasource.username={username here}
+
 spring.datasource.password={password here}
+
 spring.jpa.hibernate.ddl-auto=create-drop
 
 Step 3: Run as spring boot application
 
-(Application made using eclipse)
