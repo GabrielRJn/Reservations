@@ -11,6 +11,7 @@ Example reservation data:
 ![image](https://user-images.githubusercontent.com/88378835/187108608-23013c2e-a9b5-4e40-8937-993a53414161.png)
 
 The Reservation System uses custom SQL queries to help search through the table and custom exception to provide user friendly error messages.
+
 Example error message:
 
 ![image](https://user-images.githubusercontent.com/88378835/187109377-49890a68-49b8-428e-ab9b-4bfbd144ac03.png)
@@ -18,11 +19,11 @@ Example error message:
 ## Challenges faced:
 There were some issues adding JUnit tests for all methods in this project and so coverage is not at its best.
 
-### Future development:
-***
-*Improved JUnit tests will be added to improve coverage
-*DTOs will be added to reduce requests
-*A front end will be added to make this more user friendly
+## Future development:
+
+* Improved JUnit tests will be added to improve coverage
+* DTOs will be added to reduce requests
+* A front end will be added to make this more user friendly
 
 
 ## How to run the project with your MySql Workbench (Not using attached SQL resources)
