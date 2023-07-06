@@ -1,7 +1,7 @@
 # Reservations
 ###
 
-### Why are we doing this?
+### Why are am I doing this?
 This Spring boot API was made using MVC architecture to handle details of customer reservations able to perform CRUD operations on MySQL database. This was a 3-day challenge given by QA's Software Development Bootcamp. The progress of the project was tracked using Jira.
 
 ### How I expected the challenge to go
